@@ -6,7 +6,7 @@ namespace ToDoApp.Model;
 internal class DateTasksMemory : FileMemory<TasksCollection>
 {
     private static readonly Regex FileNameRegex = 
-        new Regex(@"(?<day>\d*)d(?<month>\d*)m(?<year>\d*)y", RegexOptions.Compiled);
+        new Regex(@"(?<day>\d+)d(?<month>\d+)m(?<year>\d+)y", RegexOptions.Compiled);
 
     public DateOnly Date { get; }
 

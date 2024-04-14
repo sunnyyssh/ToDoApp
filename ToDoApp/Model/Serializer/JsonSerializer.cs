@@ -4,12 +4,12 @@ namespace ToDoApp.Model;
 
 public class JsonSerializer<TData> : ISerializer<TData>
 {
-    public string Serialize(TData data)
+    public virtual string Serialize(TData data)
     {
         return JsonSerializer.Serialize(data);
     }
 
-    public async Task<string> SerializeAsync(TData data)
+    public virtual async Task<string> SerializeAsync(TData data)
     {
         await using var memoryStream = new MemoryStream();
         await JsonSerializer.SerializeAsync(memoryStream, data);
@@ -20,12 +20,12 @@ public class JsonSerializer<TData> : ISerializer<TData>
         return await reader.ReadToEndAsync();
     }
 
-    public TData? Deserialize(string from)
+    public virtual TData? Deserialize(string from)
     {
         return JsonSerializer.Deserialize<TData>(from);
     }
 
-    public async Task<TData?> DeserializeAsync(string from)
+    public virtual async Task<TData?> DeserializeAsync(string from)
     {
         await using var memoryStream = new MemoryStream();
         

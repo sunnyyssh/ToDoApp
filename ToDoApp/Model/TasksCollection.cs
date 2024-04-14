@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ToDoApp.Model;
 
@@ -16,10 +18,16 @@ public sealed class TasksCollection : IEnumerable<ToDoTask>
             .ToArray();
     }
 
+    public int GenerateUniqueTaskId()
+    {
+        throw new NotImplementedException(); // NotImplementedException
+    }
+    
     public IEnumerator<ToDoTask> GetEnumerator() => _tasks.GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     
+    [JsonConstructor]
     public TasksCollection(IEnumerable<ToDoTask> initTasks)
     {
         _tasks = initTasks.ToList();
