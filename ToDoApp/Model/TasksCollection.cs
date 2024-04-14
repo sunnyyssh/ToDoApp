@@ -4,6 +4,8 @@ namespace ToDoApp.Model;
 
 public sealed class TasksCollection : IEnumerable<ToDoTask>
 {
+    public static readonly TasksCollection Empty = new TasksCollection(Enumerable.Empty<ToDoTask>());
+    
     private readonly List<ToDoTask> _tasks;
 
     public ToDoTask[] GetToday()
