@@ -26,4 +26,5 @@ It is simple to-do app in console.
 It is created like a demo app for <a href="https://github.com/sunnyyssh/Sunnyyssh.ConsoleUI"><u>Sunnyyssh.ConsoleUI</u></a> library.
 
 <h2>How it looks like</h2>
-<img src=".\docs\dark-theme-demo.gif" width="50%"/><img src=".\docs\light-theme-demo.gif" width="50%"/>
+<img src=".\docs\dark-theme-demo.gif" width="80%"/>
+<img src=".\docs\light-theme-demo.gif" width="80%"/>
