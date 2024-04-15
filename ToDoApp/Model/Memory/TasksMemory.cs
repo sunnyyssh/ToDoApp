@@ -56,6 +56,54 @@ public class TasksMemory : IMemory<TasksCollection>
         }
     }
 
+    public void Rewrite(TasksCollection data)
+    {
+        ArgumentNullException.ThrowIfNull(data, nameof(data));
+
+        var grouped = data.GroupBy(task => task.Date);
+
+        foreach (var oneDateTasks in grouped)
+        {
+            var date = oneDateTasks.Key;
+            var dateCollection = new TasksCollection(oneDateTasks);
+            
+            if (!_dateMemories.TryGetValue(date, out var memory))
+            {
+                var dateFileName = DateTasksMemory.ResolveFileName(date);
+                var dateFilePath = Path.Combine(_dirPath, dateFileName);
+                
+                memory = new DateTasksMemory(dateFilePath, date, _serializer);
+                _dateMemories.Add(date, memory);
+            }
+
+            memory.Rewrite(dateCollection);
+        }
+    }
+
+    public async Task RewriteAsync(TasksCollection data)
+    {
+        ArgumentNullException.ThrowIfNull(data, nameof(data));
+
+        var grouped = data.GroupBy(task => task.Date);
+
+        foreach (var oneDateTasks in grouped)
+        {
+            var date = oneDateTasks.Key;
+            var dateCollection = new TasksCollection(oneDateTasks);
+            
+            if (!_dateMemories.TryGetValue(date, out var memory))
+            {
+                var dateFileName = DateTasksMemory.ResolveFileName(date);
+                var dateFilePath = Path.Combine(_dirPath, dateFileName);
+                
+                memory = new DateTasksMemory(dateFilePath, date, _serializer);
+                _dateMemories.Add(date, memory);
+            }
+
+            await memory.RewriteAsync(dateCollection);
+        }
+    }
+
     public TasksCollection Load()
     {
         var files = Directory.GetFiles(_dirPath);
@@ -75,6 +123,7 @@ public class TasksMemory : IMemory<TasksCollection>
 
             var dateTasks = memory.Load();
             accumulator = accumulator.Concat(dateTasks);
+            
         }
 
         return new TasksCollection(accumulator);

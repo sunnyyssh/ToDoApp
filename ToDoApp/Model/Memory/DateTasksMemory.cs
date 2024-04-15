@@ -14,7 +14,7 @@ internal class DateTasksMemory : FileMemory<TasksCollection>
     {
         return $"{date.Day}d{date.Month}m{date.Year}y.tasks";
     }
-
+    
     public static bool TryResolveDate(string fileName, [NotNullWhen(true)] out DateOnly? date)
     {
         date = null;
@@ -37,7 +37,7 @@ internal class DateTasksMemory : FileMemory<TasksCollection>
     }
 
     public DateTasksMemory(string filePath, DateOnly date, ISerializer<TasksCollection> serializer)
-        : base(filePath, serializer)
+        : base(filePath, serializer, TasksCollection.Empty)
     {
         Date = date;
     }

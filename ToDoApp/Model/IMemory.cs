@@ -6,6 +6,10 @@ public interface IMemory<TData>
 
     public Task SaveAsync(TData data);
 
+    public void Rewrite(TData data);
+    
+    public Task RewriteAsync(TData data);
+
     public TData Load();
 
     public Task<TData> LoadAsync();

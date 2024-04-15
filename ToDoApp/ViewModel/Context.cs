@@ -8,13 +8,13 @@ public sealed class Context
     
     public ModelContextSide ModelSide { get; }
     
-    public Context(Settings initSettings, IEnumerable<ToDoTask> initTasks)
+    public Context(Settings initSettings, IEnumerable<ToDoTask>? initTasks)
     {
         ArgumentNullException.ThrowIfNull(initSettings, nameof(initSettings));
-        ArgumentNullException.ThrowIfNull(initTasks, nameof(initTasks));
 
         var collectionChanger = new TasksCollectionChanger();
-        var tasksCollection = new TasksCollection(initTasks, collectionChanger);
+        var tasksCollection = new TasksCollection(initTasks ?? Enumerable.Empty<ToDoTask>(), 
+            collectionChanger);
 
         ViewSide = new ViewContextSide(initSettings, tasksCollection, collectionChanger);
         
