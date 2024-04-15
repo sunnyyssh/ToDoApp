@@ -33,7 +33,6 @@ internal static class Program
         
         app.Run();
 
-        Thread.Sleep(15000);
         app.Wait();
     }
 }
